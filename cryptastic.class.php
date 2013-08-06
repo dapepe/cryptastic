@@ -2,12 +2,12 @@
 
 /**
  * PHP Encryption / Decryption Using the MCrypt Library (libmcrypt)
- * 
+ *
  * THIS IS A MODIFIED VERSION OF THE cryptastic CLASS.
- * The original code can be found at the following URL 
- * 
+ * The original code can be found at the following URL
+ *
  * http://www.itnewb.com/v/PHP-Encryption-Decryption-Using-the-MCrypt-Library-libmcrypt
- * 
+ *
  * @author by Andrew Johnson (modifications by P. Haider)
  * @copyright Andrew Johnson Jun 3, 2009 (modified Sep 22, 2009)
  * @license You are free to use this code for personal/business use, without attribution, although it would be appreciated.
@@ -24,7 +24,7 @@ class cryptastic {
 	 *	@return  string   iv+ciphertext+mac or
 	 *           boolean  false on error
 	*/
-	public static function encrypt( $msg, $k, $base64 = false ) {
+	static public function encrypt( $msg, $k, $base64 = false ) {
 
 		# open cipher module (do not change cipher/mode)
 		if ( ! $td = mcrypt_module_open('rijndael-256', '', 'ctr', '') )
@@ -58,7 +58,7 @@ class cryptastic {
 	 *	@return  string   original message/data or
 	 *           boolean  false on error
 	*/
-	public static function decrypt( $msg, $k, $base64 = false ) {
+	static public function decrypt( $msg, $k, $base64 = false ) {
 
 		if ( $base64 ) $msg = base64_decode($msg);			# base64 decode?
 
@@ -97,7 +97,7 @@ class cryptastic {
 	 *
 	 *	@return  string  derived key
 	*/
-	public function pbkdf2( $p, $s, $c, $kl, $a = 'sha256' ) {
+	static public function pbkdf2( $p, $s, $c, $kl, $a = 'sha256' ) {
 
 		$hl = strlen(hash($a, null, true));	# Hash length
 		$kb = ceil($kl / $hl);				# Key blocks to compute
@@ -110,7 +110,7 @@ class cryptastic {
 			$ib = $b = hash_hmac($a, $s . pack('N', $block), $p, true);
 
 			# Perform block iterations
-			for ( $i = 1; $i < $c; $i ++ ) 
+			for ( $i = 1; $i < $c; $i ++ )
 
 				# XOR each iterate
 				$ib ^= ($b = hash_hmac($a, $b, $p, true));
@@ -122,6 +122,3 @@ class cryptastic {
 		return substr($dk, 0, $kl);
 	}
 }
-
-
-?>
