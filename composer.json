@@ -1,0 +1,15 @@
+{
+  "name": "zeyon/cryptastic",
+  "description": "PHP Encryption / Decryption Using the MCrypt Library.",
+  "license": "LGPL",
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "authors": [
+    {
+      "name": "Zeyon Technologies Inc.",
+      "email": "code@zeyon.net",
+      "homepage": "https://www.zeyos.com"
+    }
+  ]
+}
